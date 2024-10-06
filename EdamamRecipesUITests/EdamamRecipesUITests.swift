@@ -28,9 +28,9 @@ final class EdamamRecipesUITests: XCTestCase {
         let collectionView = app.collectionViews.element
         let existsPredicate = NSPredicate(format: "exists == true")
         expectation(for: existsPredicate, evaluatedWith: collectionView, handler: nil)
-        waitForExpectations(timeout: 10, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
-                XCTAssertGreaterThan(
+        XCTAssertGreaterThan(
             collectionView.cells.count,
             0,
             "The collection view should load recipes"

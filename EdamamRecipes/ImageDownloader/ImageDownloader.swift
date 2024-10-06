@@ -12,12 +12,16 @@ protocol ImageDownloader {
 }
 
 final class DefaultImageDownloader: ImageDownloader {
-    private let cache = NSCache<NSString, UIImage>()
+    private let cache: DiskImageCacher
+    
+    init(cache: DiskImageCacher) {
+        self.cache = cache
+    }
     
     func loadImage(from url: URL) async throws -> UIImage? {
-        let urlString = url.absoluteString as NSString
+        let urlString = url.absoluteString
         
-        if let cachedImage = cache.object(forKey: urlString) {
+        if let cachedImage = cache.loadImage(forKey: urlString) {
             return cachedImage
         }
         
@@ -25,7 +29,7 @@ final class DefaultImageDownloader: ImageDownloader {
         
         guard let image = UIImage(data: data) else { return nil }
         
-        cache.setObject(image, forKey: urlString)
+        cache.saveImage(image, forKey: urlString)
         
         return image
     }

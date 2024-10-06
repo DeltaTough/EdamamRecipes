@@ -13,9 +13,15 @@ final class RecipeListCollectionViewController: UIViewController {
     @IBOutlet weak private var searchBar: UISearchBar!
     @IBOutlet weak private var collectionView: UICollectionView!
     
-    private let imageLoader = DefaultImageDownloader()
+    private lazy var imageLoader: DefaultImageDownloader = {
+        let cache = DiskImageCacher(maxCacheSize: 100 * 1024 * 1024)
+        let loader = DefaultImageDownloader(cache: cache)
+        return loader
+    }()
     private var cancellables: Set<AnyCancellable> = []
     private let viewModel: RecipeListViewModel
+    private var cellViewModels: [Int: RecipeCellViewModel] = [:]
+    private var isRotating = false
     
     init(viewModel: RecipeListViewModel) {
         self.viewModel = viewModel
@@ -57,6 +63,21 @@ final class RecipeListCollectionViewController: UIViewController {
             }
             .store(in: &cancellables)
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if !isRotating {
+            isRotating = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.collectionView.collectionViewLayout.invalidateLayout()
+                self.isRotating = false
+            }
+        }
+    }
+  
+    deinit {
+        cellViewModels.removeAll()
+    }
 }
 
 extension RecipeListCollectionViewController: UICollectionViewDataSource {
@@ -69,10 +90,16 @@ extension RecipeListCollectionViewController: UICollectionViewDataSource {
         let imageUrl = viewModel.recipes[indexPath.row].imageURL
         let title = viewModel.recipes[indexPath.row].recipeName
         
-        let viewModel = ImageCellViewModel(imageLoader: imageLoader)
-        cell.imageView.alpha = 0
+        if cellViewModels[indexPath.item] == nil {
+            cellViewModels[indexPath.item] = RecipeCellViewModel(imageLoader: imageLoader)
+        }
+        let viewModel = cellViewModels[indexPath.item]!
         cell.configure(with: viewModel, url: imageUrl, recipeName: title)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        cellViewModels[indexPath.item]?.cancelDownload()
     }
 }
 
@@ -105,7 +132,7 @@ extension RecipeListCollectionViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             searchBar.resignFirstResponder()
-            collectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+            collectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
         }
     }
 }

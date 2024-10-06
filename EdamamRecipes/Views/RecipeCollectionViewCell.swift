@@ -9,14 +9,14 @@ import UIKit
 
 final class RecipeCollectionViewCell: UICollectionViewCell {
     
-    private var viewModel: ImageCellViewModel?
+    private var viewModel: RecipeCellViewModel?
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 16
         imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false // Enable Auto Layout
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -25,18 +25,22 @@ final class RecipeCollectionViewCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         label.textAlignment = .left
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false // Enable Auto Layout
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     let separatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = .lightGray  // Choose your separator color
+        view.backgroundColor = .lightGray
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    func configure(with viewModel: ImageCellViewModel, url: URL, recipeName: String) {
+    func configure(
+        with viewModel: RecipeCellViewModel,
+        url: URL,
+        recipeName: String
+    ) {
         self.viewModel = viewModel
         Task {
             await loadImage(from: url)
@@ -57,14 +61,15 @@ final class RecipeCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func cancelDownload() {
+        viewModel?.cancelDownload()
+    }
+    
     private func loadImage(from url: URL) async {
         do {
             if let image = try await viewModel?.loadImage(for: url) {
                 DispatchQueue.main.async {
                     self.imageView.image = image
-                    UIView.animate(withDuration: 0.5) {
-                        self.imageView.alpha = 1.5  // Fade-in effect
-                    }
                 }
             }
         } catch {
@@ -77,7 +82,7 @@ final class RecipeCollectionViewCell: UICollectionViewCell {
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             imageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.8),
-            imageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.35)// Image takes 70% of the cell height
+            imageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.35)
         ])
         
         NSLayoutConstraint.activate([
@@ -90,7 +95,7 @@ final class RecipeCollectionViewCell: UICollectionViewCell {
             separatorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             separatorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             separatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            separatorView.heightAnchor.constraint(equalToConstant: 1)  // 1pt height for a thin line
+            separatorView.heightAnchor.constraint(equalToConstant: 1)
         ])
     }
     
@@ -98,6 +103,10 @@ final class RecipeCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         imageView.image = nil
         title.text = nil
+        viewModel?.cancelDownload()
     }
     
+    deinit {
+        viewModel = nil
+    }
 }
