@@ -19,7 +19,7 @@ protocol APIClientProtocol {
 
 // MARK: - API Client
 
-final class APIClient: APIClientProtocol {
+final actor APIClient: APIClientProtocol {
     private let baseURL: URL
     private let session: URLSessionProtocol
     
