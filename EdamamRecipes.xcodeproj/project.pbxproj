@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C6DE9E32CB876120056FAB5 /* ImageDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6DE9E22CB876120056FAB5 /* ImageDownloadOperation.swift */; };
+		8C6DE9E52CB8761E0056FAB5 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6DE9E42CB8761E0056FAB5 /* ImageCache.swift */; };
+		8C6DE9E72CB876280056FAB5 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6DE9E62CB876280056FAB5 /* Operation.swift */; };
+		8C6DE9E92CBB0D1F0056FAB5 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6DE9E82CBB0D1F0056FAB5 /* String.swift */; };
 		8CAE315A2CAD4A7000390481 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAE31592CAD4A7000390481 /* AppDelegate.swift */; };
 		8CAE315C2CAD4A7000390481 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAE315B2CAD4A7000390481 /* SceneDelegate.swift */; };
 		8CAE31612CAD4A7000390481 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 8CAE31602CAD4A7000390481 /* Base */; };
@@ -15,7 +19,6 @@
 		8CAE317B2CAD4A7100390481 /* EdamamRecipesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAE317A2CAD4A7100390481 /* EdamamRecipesUITests.swift */; };
 		8CAE318B2CAD786F00390481 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAE318A2CAD786F00390481 /* Router.swift */; };
 		8CAE318F2CAD79CF00390481 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAE318E2CAD79CF00390481 /* APIClient.swift */; };
-		8CAE31952CADBA9F00390481 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAE31942CADBA9F00390481 /* ImageDownloader.swift */; };
 		8CAE31992CADBCE800390481 /* RecipeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAE31972CADBCE800390481 /* RecipeCollectionViewCell.swift */; };
 		8CAE319C2CAE975900390481 /* RecipeListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAE319B2CAE975900390481 /* RecipeListCollectionViewController.swift */; };
 		8CAE31A82CAEE83800390481 /* RecipeListCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CAE31A72CAEE83800390481 /* RecipeListCollectionViewController.xib */; };
@@ -56,6 +59,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8C6DE9E22CB876120056FAB5 /* ImageDownloadOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloadOperation.swift; sourceTree = "<group>"; };
+		8C6DE9E42CB8761E0056FAB5 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		8C6DE9E62CB876280056FAB5 /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
+		8C6DE9E82CBB0D1F0056FAB5 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		8CAE31562CAD4A7000390481 /* EdamamRecipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EdamamRecipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CAE31592CAD4A7000390481 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CAE315B2CAD4A7000390481 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,7 +75,6 @@
 		8CAE317A2CAD4A7100390481 /* EdamamRecipesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdamamRecipesUITests.swift; sourceTree = "<group>"; };
 		8CAE318A2CAD786F00390481 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		8CAE318E2CAD79CF00390481 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
-		8CAE31942CADBA9F00390481 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		8CAE31972CADBCE800390481 /* RecipeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCollectionViewCell.swift; sourceTree = "<group>"; };
 		8CAE319B2CAE975900390481 /* RecipeListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeListCollectionViewController.swift; sourceTree = "<group>"; };
 		8CAE31A72CAEE83800390481 /* RecipeListCollectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeListCollectionViewController.xib; sourceTree = "<group>"; };
@@ -193,7 +199,8 @@
 			isa = PBXGroup;
 			children = (
 				8CC045E12CB2F4E300B6DF67 /* DiskImageCacher.swift */,
-				8CAE31942CADBA9F00390481 /* ImageDownloader.swift */,
+				8C6DE9E22CB876120056FAB5 /* ImageDownloadOperation.swift */,
+				8C6DE9E42CB8761E0056FAB5 /* ImageCache.swift */,
 			);
 			path = ImageDownloader;
 			sourceTree = "<group>";
@@ -211,6 +218,8 @@
 		8CAE31A92CAF2C2E00390481 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				8C6DE9E62CB876280056FAB5 /* Operation.swift */,
+				8C6DE9E82CBB0D1F0056FAB5 /* String.swift */,
 				8CAE31AA2CAF2C4B00390481 /* UIViewController+Alert.swift */,
 			);
 			path = Extensions;
@@ -371,13 +380,15 @@
 			files = (
 				8CAE319C2CAE975900390481 /* RecipeListCollectionViewController.swift in Sources */,
 				8CAE31992CADBCE800390481 /* RecipeCollectionViewCell.swift in Sources */,
+				8C6DE9E32CB876120056FAB5 /* ImageDownloadOperation.swift in Sources */,
 				8CAE318B2CAD786F00390481 /* Router.swift in Sources */,
-				8CAE31952CADBA9F00390481 /* ImageDownloader.swift in Sources */,
 				8CAE31AE2CAFE14F00390481 /* RecipeCellViewModel.swift in Sources */,
 				8CAE31AB2CAF2C4B00390481 /* UIViewController+Alert.swift in Sources */,
 				8CAE31BB2CAFE2E200390481 /* Links.swift in Sources */,
+				8C6DE9E72CB876280056FAB5 /* Operation.swift in Sources */,
 				8CAE31B72CAFE28D00390481 /* Hit.swift in Sources */,
 				8CAE318F2CAD79CF00390481 /* APIClient.swift in Sources */,
+				8C6DE9E52CB8761E0056FAB5 /* ImageCache.swift in Sources */,
 				8CAE31BF2CAFE34000390481 /* Endpoint.swift in Sources */,
 				8CC045E22CB2F4E300B6DF67 /* DiskImageCacher.swift in Sources */,
 				8CAE31B92CAFE2C600390481 /* Recipe.swift in Sources */,
@@ -385,6 +396,7 @@
 				8CAE31B52CAFE27300390481 /* WebResponse.swift in Sources */,
 				8CAE315A2CAD4A7000390481 /* AppDelegate.swift in Sources */,
 				8CAE31BD2CAFE2F300390481 /* Next.swift in Sources */,
+				8C6DE9E92CBB0D1F0056FAB5 /* String.swift in Sources */,
 				8CAE315C2CAD4A7000390481 /* SceneDelegate.swift in Sources */,
 				8CAE31B22CAFE21A00390481 /* APIError.swift in Sources */,
 			);

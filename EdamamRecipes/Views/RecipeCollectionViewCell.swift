@@ -9,7 +9,7 @@ import UIKit
 
 final class RecipeCollectionViewCell: UICollectionViewCell {
     
-    private var viewModel: RecipeCellViewModel?
+   // private var viewModel: RecipeCellViewModel?
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -37,14 +37,10 @@ final class RecipeCollectionViewCell: UICollectionViewCell {
     }()
     
     func configure(
-        with viewModel: RecipeCellViewModel,
-        url: URL,
+        image: UIImage?,
         recipeName: String
     ) {
-        self.viewModel = viewModel
-        Task {
-            await loadImage(from: url)
-        }
+        imageView.image = image
         title.text = recipeName
     }
     
@@ -59,22 +55,6 @@ final class RecipeCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func cancelDownload() {
-        viewModel?.cancelDownload()
-    }
-    
-    private func loadImage(from url: URL) async {
-        do {
-            if let image = try await viewModel?.loadImage(for: url) {
-                DispatchQueue.main.async {
-                    self.imageView.image = image
-                }
-            }
-        } catch {
-            print("Failed to load image: \(error)")
-        }
     }
     
     private func setupConstraints() {
@@ -103,10 +83,10 @@ final class RecipeCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         imageView.image = nil
         title.text = nil
-        viewModel?.cancelDownload()
+        //viewModel?.cancelDownload()
     }
     
     deinit {
-        viewModel = nil
+       // viewModel = nil
     }
 }

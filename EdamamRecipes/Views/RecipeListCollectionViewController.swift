@@ -13,15 +13,15 @@ final class RecipeListCollectionViewController: UIViewController {
     @IBOutlet weak private var searchBar: UISearchBar!
     @IBOutlet weak private var collectionView: UICollectionView!
     
-    private lazy var imageLoader: DefaultImageDownloader = {
-        let cache = DiskImageCacher(maxCacheSize: 100 * 1024 * 1024)
-        let loader = DefaultImageDownloader(cache: cache)
-        return loader
-    }()
     private var cancellables: Set<AnyCancellable> = []
-    private let viewModel: RecipeListViewModel
-    private var cellViewModels: [Int: RecipeCellViewModel] = [:]
+    private var viewModel: RecipeListViewModel
+    private let downloadQueue = OperationQueue()
+    private var downloadOperations: [IndexPath: ImageDownloadOperation] = [:]
     private var isRotating = false
+    private lazy var imageCache: ImageCache = {
+        let cache = ImageCache()
+        return cache
+    }()
     
     init(viewModel: RecipeListViewModel) {
         self.viewModel = viewModel
@@ -62,6 +62,7 @@ final class RecipeListCollectionViewController: UIViewController {
                 
             }
             .store(in: &cancellables)
+        downloadQueue.maxConcurrentOperationCount = 5
     }
     
     override func viewDidLayoutSubviews() {
@@ -73,10 +74,6 @@ final class RecipeListCollectionViewController: UIViewController {
                 self.isRotating = false
             }
         }
-    }
-  
-    deinit {
-        cellViewModels.removeAll()
     }
 }
 
@@ -90,16 +87,42 @@ extension RecipeListCollectionViewController: UICollectionViewDataSource {
         let imageUrl = viewModel.recipes[indexPath.row].imageURL
         let title = viewModel.recipes[indexPath.row].recipeName
         
-        if cellViewModels[indexPath.item] == nil {
-            cellViewModels[indexPath.item] = RecipeCellViewModel(imageLoader: imageLoader)
+        if let cachedImage = imageCache.getImage(forKey: imageUrl.absoluteString) {
+            cell.configure(image: cachedImage, recipeName: title)
+        } else {
+            cell.configure(image: nil, recipeName: title) // Clear the image view while loading
+            
+            // Cancel any existing operation for this indexPath
+            if let existingOperation = downloadOperations[indexPath] {
+                existingOperation.cancel()
+                downloadOperations.removeValue(forKey: indexPath)
+            }
+            
+            // Create a new image download operation
+            let operation = ImageDownloadOperation(urlString: imageUrl.absoluteString, cache: imageCache)
+            
+            Task {
+                // Start the operation asynchronously using async/await
+                await operation.asyncStart(on: downloadQueue)
+                
+                // Once the operation is complete, update the cell if it's still visible
+                if let visibleIndexPath = collectionView.indexPath(for: cell), visibleIndexPath == indexPath {
+                    cell.configure(image: operation.image, recipeName: title)
+                }
+                
+                downloadOperations.removeValue(forKey: indexPath)
+            }
+            
+            downloadOperations[indexPath] = operation
         }
-        let viewModel = cellViewModels[indexPath.item]!
-        cell.configure(with: viewModel, url: imageUrl, recipeName: title)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        cellViewModels[indexPath.item]?.cancelDownload()
+        if let operation = downloadOperations[indexPath] {
+            operation.cancel()
+            downloadOperations.removeValue(forKey: indexPath)
+        }
     }
 }
 
