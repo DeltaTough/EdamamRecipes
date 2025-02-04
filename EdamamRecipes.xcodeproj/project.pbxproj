@@ -36,6 +36,7 @@
 		8CAE31C62CAFE66600390481 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAE31C52CAFE66600390481 /* MockURLSession.swift */; };
 		8CAE31C82CAFE6DD00390481 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAE31C72CAFE6DD00390481 /* APIClientTests.swift */; };
 		8CC045E22CB2F4E300B6DF67 /* DiskImageCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC045E12CB2F4E300B6DF67 /* DiskImageCacher.swift */; };
+		8CC1080D2D42A70100BC0A3F /* EnvironmentVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC1080C2D42A6F900BC0A3F /* EnvironmentVariables.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8C50ECB32D52C4F500B4F71B /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		8CAE31562CAD4A7000390481 /* EdamamRecipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EdamamRecipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CAE31592CAD4A7000390481 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CAE315B2CAD4A7000390481 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 		8CAE31C52CAFE66600390481 /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
 		8CAE31C72CAFE6DD00390481 /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
 		8CC045E12CB2F4E300B6DF67 /* DiskImageCacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskImageCacher.swift; sourceTree = "<group>"; };
+		8CC1080C2D42A6F900BC0A3F /* EnvironmentVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentVariables.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +144,7 @@
 				8CAE31A92CAF2C2E00390481 /* Extensions */,
 				8CAE31932CADBA8A00390481 /* ImageDownloader */,
 				8CAE31672CAD4A7100390481 /* Info.plist */,
+				8CC1080B2D42A6E500BC0A3F /* EnvironmentVariables */,
 				8CAE31642CAD4A7100390481 /* LaunchScreen.storyboard */,
 				8CAE315F2CAD4A7000390481 /* Main.storyboard */,
 				8CAE31B32CAFE25500390481 /* Models */,
@@ -235,6 +239,15 @@
 				8CAE31B42CAFE27300390481 /* WebResponse.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		8CC1080B2D42A6E500BC0A3F /* EnvironmentVariables */ = {
+			isa = PBXGroup;
+			children = (
+				8C50ECB32D52C4F500B4F71B /* Debug.xcconfig */,
+				8CC1080C2D42A6F900BC0A3F /* EnvironmentVariables.swift */,
+			);
+			path = EnvironmentVariables;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -344,6 +357,7 @@
 				8CAE31632CAD4A7100390481 /* Assets.xcassets in Resources */,
 				8CAE31662CAD4A7100390481 /* Base in Resources */,
 				8CAE31A82CAEE83800390481 /* RecipeListCollectionViewController.xib in Resources */,
+				8C50ECB42D52C4F500B4F71B /* Debug.xcconfig in Resources */,
 				8CAE31612CAD4A7000390481 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,6 +389,7 @@
 				8CAE31952CADBA9F00390481 /* ImageDownloader.swift in Sources */,
 				8CAE31AE2CAFE14F00390481 /* RecipeCellViewModel.swift in Sources */,
 				8CAE31AB2CAF2C4B00390481 /* UIViewController+Alert.swift in Sources */,
+				8CC1080D2D42A70100BC0A3F /* EnvironmentVariables.swift in Sources */,
 				8CAE31BB2CAFE2E200390481 /* Links.swift in Sources */,
 				8CAE31B72CAFE28D00390481 /* Hit.swift in Sources */,
 				8CAE318F2CAD79CF00390481 /* APIClient.swift in Sources */,
@@ -448,6 +463,7 @@
 /* Begin XCBuildConfiguration section */
 		8CAE317E2CAD4A7100390481 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C50ECB32D52C4F500B4F71B /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

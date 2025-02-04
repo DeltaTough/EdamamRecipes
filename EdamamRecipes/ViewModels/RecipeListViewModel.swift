@@ -21,8 +21,8 @@ final class RecipeListViewModel {
         do {
             let endpoint = Endpoint(
                 queryItems: [
-                    URLQueryItem(name: "app_id", value: "9a1d9790"),
-                    URLQueryItem(name: "app_key", value: "c89facf9fc50fb3a11d88ae05964d88a"),
+                    URLQueryItem(name: "app_id", value: EnvironmentVariables.apiId),
+                    URLQueryItem(name: "app_key", value: EnvironmentVariables.apiKey),
                     URLQueryItem(name: "q", value: query),
                     URLQueryItem(name: "type", value: "public")
                 ]
